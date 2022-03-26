@@ -1,0 +1,61 @@
+Pentru realizarea temei sunt necesare urmatoarele 3 structuri de date: 
+tabela tash TH, celula listei dublu inlantuite TCelula2 si lista TLDI,
+structura numita Server cu Key si Value pe baza carora e construita tema.
+Acestea sunt declarate in biblioteca, impreuna cu antetul functiilor folosite
+in tema.
+
+Fisierul functii_hash contine functiile de prelucrare a unei tabele hash:
+-InitializareTH cu M si functia hash primite ca parametru care sunt setate 
+ca campuri ale unui hash table, impreuna cu un vector v, de M pointeri la 
+liste.
+-AfisareTH de afisare a tuturor celulelor, in cazul nostru Server, din 
+tabela.
+-DistrugeTH care aplica functia de distrugere de TLDI asupra fiecarei 
+intrari din vectorul v.
+
+Fisierul functii_list contine functiile de prelucrare a liselor si a 
+serverelor din ele:
+-AlocareServer de alocare a unui Server cu parametrii primiti Key si Value.
+-afisareSite de afisare ip a Serverului.
+-DistrugeServer care elibereaza memoria asociata unui server.
+-AlocareLDI de alocare TLDI cu valoare specificata parametric.
+-AfisareLDI de afisare a Serverelor dintr-o lista folosind afisareSite.
+-InserareDupaLDI de inserare a unui Server intr-o TLDI. Se foloseste 
+functia de comparare a 2 servere dupa Key, cmp, pentru a insera alfabetic
+serverul in lista. Mai multe cazuri sunt posibile. Aferent fiecarui caz
+sunt indicate comentarii.
+-DistrugeTLDI de distrugere element cu element a LDI folosind o functie de 
+eliminare de element.
+-Remove  de eliminare a unui Server dintr-un tabel hash. Mai multe cazuri 
+sunt posibile. Aferent fiecarui caz sunt indicate comentarii.
+-findKey de cautare a unui Server intr-o tabela hash. Returneaza, in caz 
+ca se regaseste, adresa sa in lista.
+
+
+Inainte de fluxul de input si prelucrare, am mai implementat functia de 
+cmp de comparare a 2 servere dupa ip, si functia hashing de hash-uire,
+care, primind un Server, calculeaza restul sumei literelor din numele 
+site-ului si numarul M.
+
+Pentru obtinerea inputului, am declarat o variabila char *line pentru a citi 
+cu fgets. Primul cuvant(pana la " "), este comanda necesara de efectuat, 
+obtinuta cu strtok. Daca comanda e put, obtin cu strtok site-ul si ip-ul si 
+le setez intr-un Server. Daca acesta nu exista deja in tabela, il introduc, 
+in caz contrar, dezaloc serverul si merg la alta comanda, daca exista.
+In caz ca comand = print, afisez cu AfisareTH tabela hash existenta.
+In caz ca comand = find, obtin cu strtok site-ul si il setez intr-un Server
+alocat. Valoarea ip-ului nu importa. Daca exista in tabela, returnez True, 
+in caz contrar False.
+In caz ca comand = get, cu strtok obtin numele site-ului a carui ip trebuie 
+returnat. Daca acesta exista evident.
+In caz ca comand = print_bucket, primesc indexul M din tabela, care indica 
+spre lista ce trebuie de printat. Aceasta se face cu AfisareTLDI.
+In caz ca comand = remove, tokenizez numele site-ului, aloc Serverul, 
+il trimit ca parametru functiei Remove de eliminare a unui Server din tabela.
+
+La sfarsit, eliberez spatiul ocupat de linie si distrug Tabela Hash.
+
+
+
+
+
